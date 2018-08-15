@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import SearchView from "./components/search";
+import Search from "./components/search";
 import Board from "./components/board";
 import Nav from "./components/nav";
 import Footer from "./components/footer";
@@ -17,7 +17,7 @@ class App extends React.Component {
                 <section>
                     {/*<div className={`wrapper ${this.wrapperClass()}`}>*/}
                     <div className={`wrapper`}>
-                        <SearchView/>
+                        <Search/>
                         <Board/>
                     </div>
                 </section>

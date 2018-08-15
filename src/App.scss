@@ -20,3 +20,12 @@ section{
   }
 }
 
+
+@media only screen and (max-width: 600px) {
+  section {
+    grid-column: 1 / span 3;
+    .wrapper{
+      position: initial;
+    }
+  }
+}

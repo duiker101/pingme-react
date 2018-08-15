@@ -42,6 +42,10 @@ button {
   .search {
     grid-column: 1/span 3;
   }
+
+  input[type=text] {
+    width: 100%;
+  }
 }
 
 /*# sourceMappingURL=search.css.map */

@@ -20,4 +20,13 @@ section .wrapper.expanded {
   top: 10%;
 }
 
+@media only screen and (max-width: 600px) {
+  section {
+    grid-column: 1/span 3;
+  }
+  section .wrapper {
+    position: initial;
+  }
+}
+
 /*# sourceMappingURL=App.css.map */
