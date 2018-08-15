@@ -1,0 +1,10 @@
+.content{
+  margin-top: 0;
+  opacity: 1;
+  transition: all 1s;
+  &.hidden{
+    margin-top:40%;
+    opacity: 0;
+  }
+}
+

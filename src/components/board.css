@@ -1,0 +1,11 @@
+.content {
+  margin-top: 0;
+  opacity: 1;
+  transition: all 1s;
+}
+.content.hidden {
+  margin-top: 40%;
+  opacity: 0;
+}
+
+/*# sourceMappingURL=board.css.map */

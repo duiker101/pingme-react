@@ -1,9 +1,14 @@
 import React from 'react';
-import 'search.css'
+import './search.css'
 
 class SearchView extends React.Component {
     render() {
-        return (<input value='fd' />);
+        return (
+            <div className="search">
+                <input type="text"/>
+                <button className="region">EUW1</button>
+            </div>
+        );
     }
 }
 

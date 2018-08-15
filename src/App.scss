@@ -1,0 +1,22 @@
+main {
+  height: 100%;
+  min-height: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: auto 1fr auto;
+}
+
+section{
+  position:relative;
+  grid-column: 2;
+  min-width: 400px;
+  .wrapper{
+    transition: all 1s;
+    position:absolute;
+    top:40%;
+    &.expanded{
+      top:10%;
+    }
+  }
+}
+
