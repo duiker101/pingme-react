@@ -5,7 +5,7 @@ class SearchView extends React.Component {
     render() {
         return (
             <div className="search">
-                <input type="text"/>
+                <input type="text" placeholder="Player Name"/>
                 <button className="region">EUW1</button>
             </div>
         );
