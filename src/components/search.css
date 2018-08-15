@@ -8,6 +8,7 @@ input[type=text] {
   box-sizing: border-box;
   -webkit-transition: all 0.2s;
   position: absolute;
+  z-index: 2;
 }
 input[type=text]:focus {
   outline: none;
@@ -24,6 +25,7 @@ button {
   border-left: 1px solid #a0a0a0;
   background: #e0e0e0;
   width: 60px;
+  z-index: 3;
 }
 
 .search {

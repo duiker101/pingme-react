@@ -3,7 +3,7 @@ import './board.scss'
 
 class Board extends React.Component{
     render(){
-        return (<div>lol</div>);
+        return (<div></div>);
     }
 
     // componentDidMount() {

@@ -1,12 +1,29 @@
 .countries {
-  position: absolute;
-  top: 40px;
   height: 0;
   transition: all 1s;
   overflow: hidden;
+  width: 360px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  background: white;
+  border-radius: 0 0 5px 5px;
+  z-index: 1;
+  padding: 0px 10px 10px 10px;
+  text-align: center;
 }
 .countries.expanded {
   height: 100px;
+  padding-top: 60px;
+}
+
+.country {
+  height: 40px;
+  line-height: 40px;
+  cursor: pointer;
+}
+.country:hover {
+  background: rgba(241, 217, 165, 0.8);
 }
 
 /*# sourceMappingURL=countries.css.map */
