@@ -50,5 +50,9 @@ button{
   }
   input[type="text"]{
     width:100%;
+    border-radius: 0;
+  }
+  button{
+    border-radius: 0;
   }
 }

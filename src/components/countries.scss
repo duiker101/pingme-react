@@ -8,7 +8,7 @@
   margin: auto;
 
   &.expanded {
-    height: 100px;
+    height: 120px;
     padding-top:60px;
   }
   display: grid;
@@ -26,5 +26,8 @@
   cursor:pointer;
   &:hover{
     background: rgba(241, 217, 165, 0.8);
+  }
+  &.current{
+    background:rgba(241, 217, 165, 0.5);
   }
 }

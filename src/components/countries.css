@@ -13,7 +13,7 @@
   text-align: center;
 }
 .countries.expanded {
-  height: 100px;
+  height: 120px;
   padding-top: 60px;
 }
 
@@ -24,6 +24,9 @@
 }
 .country:hover {
   background: rgba(241, 217, 165, 0.8);
+}
+.country.current {
+  background: rgba(241, 217, 165, 0.5);
 }
 
 /*# sourceMappingURL=countries.css.map */
