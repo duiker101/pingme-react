@@ -7,13 +7,9 @@ import Footer from "./components/footer";
 import './App.css';
 
 class App extends Component {
-    wrapperClass() {
-        return this.state.monitors.length > 0 ? "expanded" : "";
-    }
-
     constructor(props) {
         super(props);
-        this.state = {monitors: []}
+        this.state = {monitors: ["a","b"]}
     }
 
 
@@ -23,13 +19,21 @@ class App extends Component {
                 <Nav/>
                 <section>
                     <div className={`wrapper ${this.wrapperClass()}`}>
-                        <Search/>
-                        <Board/>
+                        <Search  addPlayer={this.fetchPlayer}/>
+                        <Board monitors={this.state.monitors}/>
                     </div>
                 </section>
                 <Footer/>
             </main>
         );
+    }
+
+    fetchPlayer = (name) => {
+        this.setState({monitors: this.state.monitors.concat([name])})
+    };
+
+    wrapperClass() {
+        return this.state.monitors.length > 0 ? "expanded" : "";
     }
 }
 

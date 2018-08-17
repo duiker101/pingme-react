@@ -1,12 +1,19 @@
 import React, {Component} from 'react';
+import './monitor.css'
 
 class MonitorView extends Component {
     render() {
         return (
-            <div className="monitor">
-
+            <div ref="content" className="monitor hidden">
+                {this.props.name}
             </div>
         );
+    }
+
+    componentDidMount() {
+        setTimeout(() => {
+            this.refs.content.classList.remove("hidden");
+        }, 50)
     }
 }
 

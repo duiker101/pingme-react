@@ -12,7 +12,7 @@ class Search extends Component {
     render() {
         return (
             <div className="search">
-                <input type="text" placeholder="Player Name"/>
+                <input type="text" placeholder="Player Name" onKeyPress={this.keyPress}/>
                 <button onClick={this.toggleCountries} className="region">{this.state.currentCountry}</button>
                 <Countries ref="countries"
                            countries={this.countries}
@@ -21,6 +21,11 @@ class Search extends Component {
             </div>
         );
     }
+    keyPress = (e) => {
+        if (e.key === 'Enter') {
+            this.props.addPlayer(e.target.value)
+        }
+    };
 
     toggleCountries = () => {
         this.refs.countries.toggleExpansion()

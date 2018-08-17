@@ -33,6 +33,7 @@ button {
   grid-row: 2;
   position: relative;
   min-width: 400px;
+  height: 40px;
 }
 
 .region {
