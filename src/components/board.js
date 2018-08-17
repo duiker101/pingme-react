@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './board.scss'
 
-class Board extends React.Component{
+class Board extends Component{
     render(){
         return (<div></div>);
     }

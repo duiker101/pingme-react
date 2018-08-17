@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './countries.css'
 
-class Country extends React.Component {
+class Country extends Component {
     constructor(props) {
         super(props);
         this.changeCountry = props.changeCountry;

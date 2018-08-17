@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './search.css'
 import Countries from "./countries";
 
-class Search extends React.Component {
+class Search extends Component {
     constructor(props) {
         super(props);
         this.countries = ["EUW1", "EUN1", "NA1", "KR", "OC1", "BR1", "JP1", "TR1", "RU", "LA1", "LA2"];
@@ -17,13 +17,16 @@ class Search extends React.Component {
                 <Countries ref="countries"
                            countries={this.countries}
                            currentCountry={this.state.currentCountry}
-                           changeCountry={this.changeCountry} />
+                           changeCountry={this.changeCountry}/>
             </div>
         );
     }
 
     toggleCountries = () => {
         this.refs.countries.toggleExpansion()
+        // fetch("https://api.riftkit.net/api/euw1/featured")
+        //     .then(r => r.json())
+        //     .then(data => console.log(data));
     };
 
     changeCountry = (country) => {
