@@ -1,0 +1,35 @@
+.errors {
+  width: 400px;
+  position: absolute;
+}
+
+.error {
+  opacity: 0;
+  height: 30px;
+  line-height: 30px;
+  top: 0;
+  width: 300px;
+  text-align: center;
+  font-size: 0.8em;
+  background: rgba(255, 74, 64, 0.5);
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+  border-radius: 3px;
+  color: #000;
+  overflow: hidden;
+  -webkit-transition: all 0.5s;
+  margin: 0 auto auto;
+  padding: 5px 10px;
+}
+.error.visible {
+  margin-top: -50px;
+  opacity: 1;
+}
+
+@media only screen and (max-width: 600px) {
+  .error.visible {
+    background: rgba(255, 74, 64, 0.8);
+    margin-top: 50px;
+  }
+}
+
+/*# sourceMappingURL=errors.css.map */

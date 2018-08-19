@@ -1,13 +1,22 @@
-.monitor{
+.monitor {
   background: white;
   border-radius: 3px;
   box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
   margin-top: 0;
   opacity: 1;
   transition: all 1s;
-  &.hidden{
-    margin-top:40%;
+
+  padding:10px;
+  margin-bottom:10px;
+  &.hidden {
+    margin-top: 40%;
     opacity: 0;
   }
 }
 
+@media only screen and (max-width: 600px) {
+  .monitor{
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}

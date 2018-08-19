@@ -5,10 +5,19 @@
   margin-top: 0;
   opacity: 1;
   transition: all 1s;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 .monitor.hidden {
   margin-top: 40%;
   opacity: 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .monitor {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
 }
 
 /*# sourceMappingURL=monitor.css.map */

@@ -34,6 +34,7 @@ button {
   position: relative;
   min-width: 400px;
   height: 40px;
+  margin-bottom: 1rem;
 }
 
 .region {
