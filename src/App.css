@@ -14,7 +14,7 @@ section {
 section .wrapper {
   transition: all 1s;
   position: absolute;
-  top: 40%;
+  top: 30%;
 }
 section .wrapper.expanded {
   top: 10%;

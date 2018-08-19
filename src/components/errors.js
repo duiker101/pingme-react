@@ -16,7 +16,11 @@ class Errors extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        if(!nextProps.message || nextProps.length === 0)
+            return;
+
         clearTimeout(this.timer);
+        console.log(nextProps);
 
         this.setState({visible: true});
 

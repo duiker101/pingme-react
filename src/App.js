@@ -11,7 +11,7 @@ import './App.css';
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {monitors: ["a", "b"], error: ''};
+        this.state = {monitors: [], error: ''};
 
         ApiService.getVersions().then(data => this.versions = data['v']);
         ApiService.getChampions().then(data => this.champions = data);
@@ -24,7 +24,6 @@ class App extends Component {
                 <Nav/>
                 <section>
                     <div className={`wrapper ${this.wrapperClass()}`}>
-                        {/*<Errors messages={this.state.errors}/>*/}
                         <Errors message={this.state.error}/>
                         <Search addPlayer={this.fetchPlayer}/>
                         <Board monitors={this.state.monitors}/>
@@ -52,9 +51,8 @@ class App extends Component {
     };
 
     showError = (error) => {
-        // this.setState({errors: this.state.errors.concat()});
-        // this.refs.errors.showError(error.message)
-        this.setState({error:error.message})
+        this.setState({error:error.message});
+        console.log(error);
     };
 
     wrapperClass() {
