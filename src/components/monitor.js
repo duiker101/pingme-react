@@ -10,15 +10,22 @@ class MonitorView extends Component {
 
     render() {
         return (
-            <div ref="content" className="monitor hidden" onMouseEnter={()=>this.setHover(true)}
-                 onMouseLeave={()=>this.setHover(false)}>
-                <img src='http://ddragon.leagueoflegends.com/cdn/7.24.2/img/profileicon/517.png'/>
-                <div className="title">Tizio</div>
+            <div ref="content" className="monitor hidden" onMouseEnter={() => this.setHover(true)}
+                 onMouseLeave={() => this.setHover(false)}>
+                <img
+                    src={`http://ddragon.leagueoflegends.com/cdn/${this.props.version}/img/profileicon/${this.props.player.profileIconId}.png`}/>
+                <div className="title">{this.props.player.name}</div>
                 <div className="time">00:00</div>
+                <span onClick={() => this.props.stop(this.props.player)}>
                 <FontAwesomeIcon icon="times" className={this.state.hovering ? 'visible' : ''}/>
+                </span>
             </div>
         );
     }
+
+    // stop = (e) => {
+    //     this.props.stop(e);
+    // };
 
     setHover = (hover) => {
         this.setState({hovering: hover})

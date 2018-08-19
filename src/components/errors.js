@@ -16,17 +16,13 @@ class Errors extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(!nextProps.message || nextProps.length === 0)
+        if (!nextProps.message || nextProps.length === 0){
+            this.setState({visible: false});
             return;
-
-        clearTimeout(this.timer);
+        }
         console.log(nextProps);
 
         this.setState({visible: true});
-
-        this.timer = setTimeout(() => {
-            this.setState({visible: false});
-        }, 3000)
     }
 }
 
