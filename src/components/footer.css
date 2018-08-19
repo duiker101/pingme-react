@@ -1,6 +1,17 @@
 footer {
-  background: blue;
+  width: 760px;
   grid-column: 1/span 3;
+  font-size: 0.8em;
+  font-weight: 100;
+  height: 100px;
+  margin: -100px auto auto;
+  color: #ffffff;
+}
+
+@media only screen and (max-width: 600px) {
+  footer {
+    display: none;
+  }
 }
 
 /*# sourceMappingURL=footer.css.map */

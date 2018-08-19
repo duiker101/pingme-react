@@ -1,5 +1,24 @@
 nav {
-  background: red;
+  height: 60px;
+  width: 95%;
+  text-align: right;
+  line-height: 60px;
   grid-column: 1/span 3;
+  a {
+    font-size: 1.4em;
+    font-weight: 100;
+    margin: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none !important;
+    -webkit-transition: all 0.5s;
+    &:hover {
+      text-shadow: 0 0 20px #fff;
+    }
+  }
 }
 
+@media only screen and (max-width: 600px) {
+  nav {
+    display: none;
+  }
+}
