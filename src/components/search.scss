@@ -11,13 +11,31 @@ input[type='text'] {
   position: absolute;
   z-index: 2;
 
-  &:focus{
+  &:focus {
     outline: none;
   }
 }
 
+.submit {
+  position: absolute;
+  top: 0;
+  height: 40px;
+  z-index: 4;
+  right: 70px;
+  .hidden{
+    display: none;
+  }
+}
 
-button{
+.fa-search {
+  height: 40px;
+  line-height: 40px;
+  font-size: 1.4em;
+  color: #444;
+  cursor: pointer;
+}
+
+button {
   position: absolute;
   top: 0;
   cursor: pointer;
@@ -37,23 +55,23 @@ button{
   position: relative;
   min-width: 400px;
   height: 40px;
-  margin-bottom:1rem;
+  margin-bottom: 1rem;
 }
 
-.region{
+.region {
   position: absolute;
-  right:0;
+  right: 0;
 }
 
 @media only screen and (max-width: 600px) {
   .search {
     grid-column: 1 / span 3;
   }
-  input[type="text"]{
-    width:100%;
+  input[type="text"] {
+    width: 100%;
     border-radius: 0;
   }
-  button{
+  button {
     border-radius: 0;
   }
 }

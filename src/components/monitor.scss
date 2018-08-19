@@ -6,16 +6,44 @@
   opacity: 1;
   transition: all 1s;
 
-  padding:10px;
-  margin-bottom:10px;
+  padding: 10px;
+  margin-bottom: 10px;
   &.hidden {
     margin-top: 40%;
     opacity: 0;
   }
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto 1fr;
+  img {
+    grid-row: 1 / span 3;
+    width: 60px;
+  }
+
+  .title {
+    grid-row: 1;
+    padding: 0 .2em .2em .5em;
+  }
+
+  .time {
+    grid-row: 2;
+    padding: .2em .2em .2em .5em;
+  }
+
+  .fa-times{
+    color:rgba(50,50,50,.5);
+    cursor: pointer;
+    opacity: 0;
+    transition:all .2s;
+    &.visible{
+      opacity:1;
+    }
+  }
 }
 
 @media only screen and (max-width: 600px) {
-  .monitor{
+  .monitor {
     margin-left: 1rem;
     margin-right: 1rem;
   }

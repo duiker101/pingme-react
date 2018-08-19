@@ -11,7 +11,7 @@ import './App.css';
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {monitors: [], error: ''};
+        this.state = {monitors: ['a'], error: '', loading: false};
 
         ApiService.getVersions().then(data => this.versions = data['v']);
         ApiService.getChampions().then(data => this.champions = data);
@@ -25,7 +25,7 @@ class App extends Component {
                 <section>
                     <div className={`wrapper ${this.wrapperClass()}`}>
                         <Errors message={this.state.error}/>
-                        <Search addPlayer={this.fetchPlayer}/>
+                        <Search addPlayer={this.fetchPlayer} loading={this.state.loading}/>
                         <Board monitors={this.state.monitors}/>
                     </div>
                 </section>
@@ -35,6 +35,7 @@ class App extends Component {
     }
 
     fetchPlayer = (name) => {
+        this.setState({loading: true});
         ApiService.getPlayer(name)
             .then(player => {
                 this.findGame(player)
@@ -45,13 +46,15 @@ class App extends Component {
     findGame = (player) => {
         ApiService.getGame(player.id)
             .then(a => {
+                this.setState({loading: false});
                 this.setState({monitors: this.state.monitors.concat([player.name])})
             })
             .catch(error => this.showError(error))
     };
 
     showError = (error) => {
-        this.setState({error:error.message});
+        this.setState({loading: false});
+        this.setState({error: error.message});
         console.log(error);
     };
 
