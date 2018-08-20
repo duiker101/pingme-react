@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Search from "./components/search";
+import Search from "./components/search/search";
 import Nav from "./components/nav";
 import Footer from "./components/footer";
 import Errors from "./components/errors";
@@ -25,17 +25,23 @@ class App extends Component {
                 <section>
                     <div className={`wrapper ${this.wrapperClass()}`}>
                         <Errors message={this.state.error}/>
-                        <Search addPlayer={this.fetchPlayer} loading={this.state.loading}/>
-                        <div>
-                            {Object.values(this.state.monitors).map(p =>
-                                <MonitorView key={p.id}
-                                             player={p}
-                                             version={this.version}
-                                             champion={this.champions[p.championId]}
-                                             stop={this.stop}
-                                />
-                            )}
-                        </div>
+
+                        <Search
+                            loading={this.state.loading}
+                            setLoading={this.setLoading}
+                            showError={this.showError}
+                            addPlayer={this.fetchPlayer} />
+
+                        {/*<div>*/}
+                        {/*{Object.values(this.state.monitors).map(p =>*/}
+                        {/*<MonitorView key={p.id}*/}
+                        {/*player={p}*/}
+                        {/*version={this.version}*/}
+                        {/*champion={this.champions[p.championId]}*/}
+                        {/*stop={this.stop}*/}
+                        {/*/>*/}
+                        {/*)}*/}
+                        {/*</div>*/}
                     </div>
                 </section>
                 <Footer/>
@@ -43,44 +49,18 @@ class App extends Component {
         );
     }
 
-    fetchPlayer = (name) => {
-        // todo check player already added
-        this.setState({loading: true});
-        ApiService.getPlayer(name)
-            .then(player => {
-                this.findGame(player)
-            })
-            .catch(error => this.showError(error))
-    };
-
-    findGame = (player) => {
-        ApiService.getGame(player.id)
-            .then(game => {
-                console.log(game);
-                for (let p of game.participants) {
-                    if (p.summonerId === player.id)
-                        player.championId = p.championId
-                }
-                this.state.monitors[player.id] = player;
-                console.log(player);
-                this.setState({
-                    monitors: this.state.monitors,
-                    loading: false
-                })
-            })
-            .catch(error => this.showError(error))
-    };
 
     stop = (player) => {
         delete this.state.monitors[player.id];
-        this.setState({
-            monitors: this.state.monitors
-        });
+        this.setState({monitors: this.state.monitors});
     };
 
-    showError = (error) => {
-        this.setState({loading: false});
-        this.setState({error: error.message});
+    setLoading = (loading) => {
+        this.setState({loading: loading});
+    };
+
+    showError = (message) => {
+        this.setState({error: message});
 
         clearTimeout(this.timer);
         this.timer = setTimeout(() => {

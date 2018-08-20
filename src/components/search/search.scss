@@ -1,5 +1,6 @@
-input[type=text] {
+input[type='text'] {
   width: 100%;
+
   padding: 10px;
   height: 40px;
   box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
@@ -9,9 +10,10 @@ input[type=text] {
   -webkit-transition: all 0.2s;
   position: absolute;
   z-index: 2;
-}
-input[type=text]:focus {
-  outline: none;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .submit {
@@ -20,9 +22,9 @@ input[type=text]:focus {
   height: 40px;
   z-index: 4;
   right: 70px;
-}
-.submit .hidden {
-  display: none;
+  .hidden {
+    display: none;
+  }
 }
 
 .fa-search {
@@ -31,20 +33,6 @@ input[type=text]:focus {
   font-size: 1.4em;
   color: #444;
   cursor: pointer;
-}
-
-button {
-  position: absolute;
-  top: 0;
-  cursor: pointer;
-  right: 0;
-  height: 40px;
-  border-radius: 0 3px 3px 0;
-  border: 0;
-  border-left: 1px solid #a0a0a0;
-  background: #e0e0e0;
-  width: 60px;
-  z-index: 3;
 }
 
 .search {
@@ -56,24 +44,15 @@ button {
   margin-bottom: 1rem;
 }
 
-.region {
-  position: absolute;
-  right: 0;
-}
-
 @media only screen and (max-width: 600px) {
   .search {
-    grid-column: 1/span 3;
+    grid-column: 1 / span 3;
   }
-
-  input[type=text] {
+  input[type="text"] {
     width: 100%;
     border-radius: 0;
   }
-
   button {
     border-radius: 0;
   }
 }
-
-/*# sourceMappingURL=search.css.map */

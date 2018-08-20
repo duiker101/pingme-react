@@ -1,6 +1,19 @@
+.region {
+  position: absolute;
+  right: 0;
+
+  top: 0;
+  cursor: pointer;
+  height: 40px;
+  border-radius: 0 3px 3px 0;
+  border: 0;
+  border-left: 1px solid #a0a0a0;
+  background: #e0e0e0;
+  width: 60px;
+  z-index: 3;
+}
+
 .countries {
-  //position: absolute;
-  //top: 40px;
   height: 0;
   transition: all 1s;
   overflow: hidden;
@@ -9,25 +22,25 @@
 
   &.expanded {
     height: 120px;
-    padding-top:60px;
+    padding-top: 60px;
   }
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   background: white;
   border-radius: 0 0 5px 5px;
   z-index: 1;
-  padding:0px 10px 10px 10px;
+  padding: 0px 10px 10px 10px;
   text-align: center;
 }
 
 .country {
   height: 40px;
   line-height: 40px;
-  cursor:pointer;
-  &:hover{
+  cursor: pointer;
+  &:hover {
     background: rgba(241, 217, 165, 0.8);
   }
-  &.current{
-    background:rgba(241, 217, 165, 0.5);
+  &.current {
+    background: rgba(241, 217, 165, 0.5);
   }
 }
