@@ -35,7 +35,7 @@ class ApiService {
     }
 
     static getChampions() {
-        return fetch(`https://api.riftkit.net/api/euw1/champions`)
+        return fetch(`https://api.riftkit.net/api/euw1/champions/small`)
             .then(this.handleErrors)
             .then(r => r.json())
     }

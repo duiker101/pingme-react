@@ -31,7 +31,7 @@ class App extends Component {
                                 <MonitorView key={p.id}
                                              player={p}
                                              version={this.version}
-                                             champion={this.champions[p]}
+                                             champion={this.champions[p.championId]}
                                              stop={this.stop}
                                 />
                             )}
@@ -55,8 +55,14 @@ class App extends Component {
 
     findGame = (player) => {
         ApiService.getGame(player.id)
-            .then(a => {
+            .then(game => {
+                console.log(game);
+                for (let p of game.participants) {
+                    if (p.summonerId === player.id)
+                        player.championId = p.championId
+                }
                 this.state.monitors[player.id] = player;
+                console.log(player);
                 this.setState({
                     monitors: this.state.monitors,
                     loading: false
