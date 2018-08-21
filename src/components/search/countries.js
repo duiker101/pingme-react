@@ -6,7 +6,7 @@ class Countries extends Component {
     constructor(props) {
         super(props);
         this.countries = ["EUW1", "EUN1", "NA1", "KR", "OC1", "BR1", "JP1", "TR1", "RU", "LA1", "LA2"];
-        this.state = {expanded: this.props.expanded};
+        this.state = {expanded: false};
     }
 
     render() {
@@ -50,7 +50,7 @@ class Countries extends Component {
 }
 
 Countries.propTypes = {
-    countries: PropTypes.array,
+    currentCountry: PropTypes.string,
     changeCountry: PropTypes.func
 };
 

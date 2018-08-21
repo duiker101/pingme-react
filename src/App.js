@@ -4,20 +4,24 @@ import Nav from "./components/nav";
 import Footer from "./components/footer";
 import Errors from "./components/errors";
 import MonitorView from "./components/monitor";
-import ApiService from "./ApiService";
+import {Apis} from "./Apis";
 
 import './App.css';
 
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {monitors: {}, error: '', loading: false};
-
-        // todo this stuff goes in the componentDidMount
-        ApiService.getVersions().then(data => this.version = data['v']);
-        ApiService.getChampions().then(data => this.champions = data);
+        this.state = {monitors: {}, error: '', loading: false, order: 0};
     }
 
+    componentDidMount() {
+        Apis.getVersions().then(data => this.version = data['v']);
+        Apis.getChampions().then(data => this.champions = data);
+
+        if (Notification.permission === 'default') {
+            Notification.requestPermission();
+        }
+    }
 
     render() {
         return (
@@ -31,18 +35,19 @@ class App extends Component {
                             loading={this.state.loading}
                             setLoading={this.setLoading}
                             showError={this.showError}
-                            addPlayer={this.fetchPlayer} />
+                            addPlayer={this.findGame}/>
 
-                        {/*<div>*/}
-                        {/*{Object.values(this.state.monitors).map(p =>*/}
-                        {/*<MonitorView key={p.id}*/}
-                        {/*player={p}*/}
-                        {/*version={this.version}*/}
-                        {/*champion={this.champions[p.championId]}*/}
-                        {/*stop={this.stop}*/}
-                        {/*/>*/}
-                        {/*)}*/}
-                        {/*</div>*/}
+                        <div>
+                            {Object.values(this.state.monitors)
+                                .sort((a, b) => a.order - b.order)
+                                .map(m =>
+                                    <MonitorView key={m.player.id}
+                                                 monitor={m}
+                                                 version={this.version}
+                                                 stop={this.stop}
+                                    />
+                                )}
+                        </div>
                     </div>
                 </section>
                 <Footer/>
@@ -50,9 +55,64 @@ class App extends Component {
         );
     }
 
+    findGame = (player) => {
+        Apis.getGame(player.id)
+            .then(game => {
+                this.addMonitor(player, game)
+            })
+            .catch(error => this.showError(error.message))
+    };
 
-    stop = (player) => {
-        delete this.state.monitors[player.id];
+    addMonitor = (player, game) => {
+        let champion = this.champions[this.getChampionId(player, game)];
+        this.state.monitors[player.id] = {player: player, game: game, champion: champion, order: this.state.order};
+        this.setState({monitors: this.state.monitors, loading: false, order: this.state.order + 1});
+        this.scheduleUpdate(player.id);
+    };
+
+    updateGame = (playerId) => {
+        if (!(playerId in this.state.monitors))
+            return;
+        Apis.getGame(playerId)
+            .then(game => {
+                if (!(playerId in this.state.monitors))
+                    return;
+                this.state.monitors[playerId].game = game;
+                this.setState({monitors: this.state.monitors});
+                this.scheduleUpdate(playerId)
+            })
+            .catch(error => {
+                    if (error.code === 404)
+                        this.finishedMonitor(playerId);
+                    else
+                        this.showError(error.message)
+                }
+            )
+    };
+
+    scheduleUpdate = (playerId) => {
+        setTimeout(() => this.updateGame(playerId), 10200);
+    };
+
+    finishedMonitor = (playerId) => {
+        let player = this.state.monitors[playerId].player;
+        this.stop(playerId);
+
+        let notification = new Notification(`${player.name} finished playing`, {
+            icon: 'https://i.imgur.com/Tmc5u7u.png',
+            body: "Go fuck some shit up!"
+        });
+    };
+
+    getChampionId = (player, game) => {
+        for (let p of game.participants) {
+            if (p.summonerId === player.id)
+                return p.championId;
+        }
+    };
+
+    stop = (playerId) => {
+        delete this.state.monitors[playerId];
         this.setState({monitors: this.state.monitors});
     };
 
@@ -61,7 +121,7 @@ class App extends Component {
     };
 
     showError = (message) => {
-        this.setState({error: message});
+        this.setState({error: message, loading: false});
 
         clearTimeout(this.timer);
         this.timer = setTimeout(() => {

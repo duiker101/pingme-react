@@ -1,7 +1,8 @@
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import PropTypes from 'prop-types';
 import React, {Component} from 'react';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+
 import './monitor.css'
-import ApiService from "../ApiService";
 
 class MonitorView extends Component {
     constructor(props) {
@@ -14,14 +15,29 @@ class MonitorView extends Component {
             <div ref="content" className="monitor hidden" onMouseEnter={() => this.setHover(true)}
                  onMouseLeave={() => this.setHover(false)}>
                 <img src={this.profileIcon()}/>
-                <div className="title">{this.props.player.name}({this.props.champion.name})</div>
+                <div className="title">
+                    {this.props.monitor.player.name}({this.props.monitor.champion.name}){this.gameMode()}
+                </div>
                 <div className="time">{this.state.time}</div>
-                <span onClick={() => this.props.stop(this.props.player)}>
+                <span onClick={() => this.props.stop(this.props.monitor.player.id)}>
                 <FontAwesomeIcon icon="times" className={this.state.hovering ? 'visible' : ''}/>
                 </span>
             </div>
         );
     }
+
+    componentDidMount() {
+        setTimeout(() => {
+            this.refs.content.classList.remove("hidden");
+        }, 50);
+
+        this.gameTime();
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.timer);
+    }
+
 
     setHover = (hover) => {
         this.setState({hovering: hover})
@@ -29,33 +45,43 @@ class MonitorView extends Component {
 
     profileIcon = () => {
         let baseUrl = 'http://ddragon.leagueoflegends.com/cdn/';
-        return `${baseUrl}${this.props.version}/img/profileicon/${this.props.player.profileIconId}.png`
-    };
-
-    componentDidMount() {
-        setTimeout(() => {
-            this.refs.content.classList.remove("hidden");
-        }, 50);
-
-        setTimeout(this.updateGame, 10 * 1000 + 200);
-        this.gameTime();
-    }
-
-    updateGame = () => {
-        ApiService.getGame(this.props.player.id)
-            .then(game => {
-
-            })
-            .catch(error => console.log(error))
+        return `${baseUrl}${this.props.version}/img/profileicon/${this.props.monitor.player.profileIconId}.png`
     };
 
     gameTime = () => {
-        let diff = ((new Date().getTime()) - 1534694997496) / 1000;
-        let minutes = parseInt(diff / 60);
-        let seconds = parseInt(diff - minutes * 60);
-        this.setState({time: `${minutes}:${seconds}`});
-        setTimeout(this.gameTime, 10)
+        let time = this.props.monitor.game.gameStartTime;
+        if (time > 0) {
+            let diff = ((new Date().getTime()) - this.props.monitor.game.gameStartTime) / 1000;
+            let minutes = parseInt(diff / 60);
+            let seconds = parseInt(diff - minutes * 60);
+            seconds = (seconds + "").length < 2 ? '0' + seconds : seconds;
+            this.setState({time: `${minutes}:${seconds}`});
+        } else {
+            this.setState({time: `Starting...`});
+        }
+        this.timer = setTimeout(this.gameTime, 10);
+    };
+
+    gameMode = () => {
+        let id = this.props.monitor.game.gameQueueConfigId;
+        let modes = {
+            420: 'Ranked Solo',
+            440: 'Ranked Flex',
+            100: 'ARAM',
+            450: 'ARAM'
+        };
+
+        if (id in modes)
+            return ` - ${modes[id]}`;
+        else return ''
     }
 }
+
+MonitorView.propTypes = {
+    version: PropTypes.string,
+    champion: PropTypes.object,
+    player: PropTypes.object,
+    game: PropTypes.object
+};
 
 export default MonitorView;

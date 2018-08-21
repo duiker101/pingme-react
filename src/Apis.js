@@ -1,4 +1,11 @@
-class ApiService {
+class ApiError extends Error {
+    constructor(code, m) {
+        super(m);
+        this.code = code;
+    }
+}
+
+class Apis {
     static handleErrors(response) {
         if (!response.ok) {
             throw Error(response.statusText);
@@ -12,9 +19,9 @@ class ApiService {
             .then(r => r.json())
             .then(data => {
                 if (data.error_code === 404) {
-                    throw Error('Player not found');
+                    throw new ApiError(data.error_code, 'Player not found');
                 } else if (data.error_code > 0) {
-                    throw Error('Error finding player');
+                    throw new ApiError(data.error_code, 'Error finding player');
                 }
                 return data;
             })
@@ -26,9 +33,9 @@ class ApiService {
             .then(r => r.json())
             .then(data => {
                 if (data.error_code === 404) {
-                    throw Error('Player not in game');
+                    throw new ApiError(data.error_code, 'Player not in game');
                 } else if (data.error_code > 0) {
-                    throw Error('Error retrieving game');
+                    throw new ApiError(data.error_code, 'Error retrieving game');
                 }
                 return data;
             })
@@ -48,4 +55,4 @@ class ApiService {
 }
 
 
-export default ApiService;
+export {Apis, ApiError};

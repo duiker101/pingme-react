@@ -10,6 +10,8 @@ import {faTimes} from '@fortawesome/free-solid-svg-icons'
 import Countries from "../components/search/countries";
 import Search from "../components/search/search";
 import SearchInput from "../components/search/search_input";
+import MonitorView from "../components/monitor";
+import * as game from './game.json';
 
 library.add(faSearch);
 library.add(faTimes);
@@ -27,10 +29,14 @@ storiesOf('Search Button', module)
 
 storiesOf('Search Input', module)
     .add('Default', () =>
-        <SearchInput loading={false} searched={action('searched')}/>
+        <div style={{position: 'relative'}}>
+            <SearchInput loading={false} searched={action('searched')}/>
+        </div>
     )
     .add('Loading', () =>
-        <SearchInput loading={true} searched={action('searched')}/>
+        <div style={{position: 'relative'}}>
+            <SearchInput loading={true} searched={action('searched')}/>
+        </div>
     )
 ;
 
@@ -45,6 +51,27 @@ storiesOf('Countries', module)
 
 storiesOf('Search', module)
     .add('Full', () =>
-        <Search />
+        <Search/>
+    )
+;
+
+let player = {
+    "accountId": 30745356,
+    "id": 27032200,
+    "name": "Duiker101",
+    "profileIconId": 774,
+    "revisionDate": 1530519258000,
+    "summonerLevel": 42
+};
+
+let monitor = {
+    player: player,
+    game: game,
+    champion: {name: "What'evga"}
+};
+
+storiesOf('Monitor', module)
+    .add('Full', () =>
+        <MonitorView monitor={monitor} version='8.16.1'/>
     )
 ;

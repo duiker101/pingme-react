@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+
+import Countries from "./countries";
+import {Apis} from "../../Apis";
+import SearchInput from "./search_input";
 
 import './search.css'
-import Countries from "./countries";
-import ApiService from "../../ApiService";
-import SearchInput from "./search_input";
 
 class Search extends Component {
     constructor(props) {
@@ -28,43 +30,21 @@ class Search extends Component {
     }
 
     toggleExpansion = () => {
-        // this.setState({expanded: !this.state.expanded});
         this.countrySelector.toggleExpansion();
     };
 
     changeCountry = (country) => {
-        // this.toggleExpansion();
-        // this.countrySelector.toggleExpansion();
         this.setState({currentCountry: country});
     };
-
 
     fetchPlayer = (name) => {
         // todo check player already added
 
         this.props.setLoading(true);
 
-        ApiService.getPlayer(name)
+        Apis.getPlayer(name)
             .then(player => {
-                this.findGame(player);
-            })
-            .catch(error => this.showError(error.message))
-    };
-
-    findGame = (player) => {
-        ApiService.getGame(player.id)
-            .then(game => {
-                console.log(game);
-                for (let p of game.participants) {
-                    if (p.summonerId === player.id)
-                        player.championId = p.championId
-                }
-                // this.state.monitors[player.id] = player;
-                console.log(player);
-                // this.setState({
-                //     monitors: this.state.monitors,
-                //     loading: false
-                // })
+                this.props.addPlayer(player);
             })
             .catch(error => this.showError(error.message))
     };
@@ -74,5 +54,13 @@ class Search extends Component {
         this.props.showError(message);
     }
 }
+
+Search.propTypes = {
+    loading: PropTypes.bool,
+
+    addPlayer: PropTypes.func,
+    setLoading: PropTypes.func,
+    showError: PropTypes.func
+};
 
 export default Search;
