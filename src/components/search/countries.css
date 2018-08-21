@@ -14,21 +14,21 @@
 
 .countries {
   height: 0;
-  transition: all 1s;
+  transition: all 0.5s;
   overflow: hidden;
   width: 360px;
   margin: auto;
+  padding: 0 10px 0 10px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   background: white;
   border-radius: 0 0 5px 5px;
   z-index: 1;
-  padding: 0px 10px 10px 10px;
   text-align: center;
 }
 .countries.expanded {
   height: 120px;
-  padding-top: 60px;
+  padding: 10px;
 }
 
 .country {
