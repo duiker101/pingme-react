@@ -1,3 +1,18 @@
+.submit {
+  height: 40px;
+  z-index: 4;
+  right: 70px;
+}
+.submit .hidden {
+  display: none;
+}
 
+.fa-search {
+  height: 40px;
+  line-height: 40px;
+  font-size: 1.4em;
+  color: #444;
+  cursor: pointer;
+}
 
 /*# sourceMappingURL=search_button.css.map */

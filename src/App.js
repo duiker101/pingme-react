@@ -13,6 +13,7 @@ class App extends Component {
         super(props);
         this.state = {monitors: {}, error: '', loading: false};
 
+        // todo this stuff goes in the componentDidMount
         ApiService.getVersions().then(data => this.version = data['v']);
         ApiService.getChampions().then(data => this.champions = data);
     }

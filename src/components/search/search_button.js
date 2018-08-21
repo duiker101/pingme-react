@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import Loader from 'react-loader-spinner'
+import './search_button.css'
 
 class SearchButton extends Component {
     render() {
-        // {/*<div className="submit" onClick={() => this.addPlayer(this.state.search)}>*/}
         return (
             <div className="submit" onClick={this.onClick}>
 
