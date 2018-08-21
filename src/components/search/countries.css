@@ -18,6 +18,7 @@
   overflow: hidden;
   width: 360px;
   margin: auto;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
   padding: 0 10px 0 10px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -28,7 +29,7 @@
 }
 .countries.expanded {
   height: 120px;
-  padding: 10px;
+  padding: 50px 10px 10px;
 }
 
 .country {

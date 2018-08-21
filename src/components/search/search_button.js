@@ -6,19 +6,20 @@ import './search_button.css'
 class SearchButton extends Component {
     render() {
         return (
-            <div className="submit" onClick={this.onClick}>
-
-                <FontAwesomeIcon icon="search" className={`button ${this.buttonClass()}`}/>
+            <React.Fragment>
+                <span onClick={this.onClick}>
+                    <FontAwesomeIcon icon="search" className={`button ${this.buttonClass()}`}/>
+                </span>
 
                 <div className={`loader ${this.loaderClass()}`}>
                     <Loader type="Puff" color="#555" height="40" width="30" cl/>
                 </div>
-            </div>
+            </React.Fragment>
         );
     }
 
     onClick = () => {
-        this.props.click();
+        this.props.onClick();
     };
 
     buttonClass = () => {

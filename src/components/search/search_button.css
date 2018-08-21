@@ -1,18 +1,17 @@
-.submit {
-  height: 40px;
-  z-index: 4;
-  right: 70px;
-}
-.submit .hidden {
+.button.hidden, .loader.hidden {
   display: none;
 }
 
-.fa-search {
+.button {
   height: 40px;
   line-height: 40px;
   font-size: 1.4em;
   color: #444;
   cursor: pointer;
+}
+
+.loader {
+  height: 40px;
 }
 
 /*# sourceMappingURL=search_button.css.map */

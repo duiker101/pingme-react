@@ -1,0 +1,28 @@
+input[type=text] {
+  width: 100%;
+  padding: 10px;
+  height: 40px;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+  border: none;
+  border-radius: 3px;
+  box-sizing: border-box;
+  -webkit-transition: all 0.2s;
+  position: absolute;
+  z-index: 2;
+}
+input[type=text]:focus {
+  outline: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .search {
+    grid-column: 1/span 3;
+  }
+
+  input[type=text] {
+    width: 100%;
+    border-radius: 0;
+  }
+}
+
+/*# sourceMappingURL=search_input.css.map */

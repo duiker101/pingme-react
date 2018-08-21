@@ -1,50 +1,53 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import './countries.css'
 
 class Countries extends Component {
     constructor(props) {
         super(props);
-        this.state = {expanded: false};
+        this.state = {expanded: this.props.expanded};
     }
 
     render() {
         return (
-            <React.Fragment>
-                <button onClick={this.toggleExpansion} className="region">{this.props.currentCountry}</button>
-                <div
-                    className={`countries ${this.expandedClass()}`}>
-                    {
-                        this.props.countries.map((code) =>
-                            <div
-                                key={code}
-                                onClick={() => this.changeCountry(code)}
-                                className={`country ${this.currentCountryClass(code)}`}
-                            >
-                                {code}
-                            </div>
-                        )
-                    }
-                </div>
-            </React.Fragment>
+            <div
+                className={`countries ${this.expandedClass()}`}>
+                {
+                    this.props.countries.map((code) =>
+                        <div
+                            key={code}
+                            onClick={() => this.changeCountry(code)}
+                            className={`country ${this.currentCountryClass(code)}`}
+                        >
+                            {code}
+                        </div>
+                    )
+                }
+            </div>
         );
     }
 
-    changeCountry = (country) => {
-        this.toggleExpansion();
-        this.props.changeCountry(country);
-    };
+    componentWillReceiveProps(props) {
+        this.setState({expanded: props.expanded});
+    }
 
-    toggleExpansion = () => {
-        this.setState({expanded: !this.state.expanded});
+    changeCountry = (country) => {
+        this.props.changeCountry(country);
     };
 
     expandedClass = () => {
         return this.state.expanded ? "expanded" : "";
-    }
+    };
 
     currentCountryClass = (code) => {
         return code === this.props.currentCountry ? "current" : "";
     }
 }
+
+Countries.propTypes = {
+    countries: PropTypes.array,
+    expanded: PropTypes.bool,
+    changeCountry: PropTypes.func
+};
 
 export default Countries;
