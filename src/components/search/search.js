@@ -8,8 +8,7 @@ import SearchInput from "./search_input";
 class Search extends Component {
     constructor(props) {
         super(props);
-        this.countries = ["EUW1", "EUN1", "NA1", "KR", "OC1", "BR1", "JP1", "TR1", "RU", "LA1", "LA2"];
-        this.state = {currentCountry: this.countries[0], expanded:false}
+        this.state = {currentCountry: ''}
     }
 
     render() {
@@ -21,8 +20,7 @@ class Search extends Component {
                 <button onClick={this.toggleExpansion} className="region">{this.state.currentCountry}</button>
 
                 <Countries
-                    expanded={this.state.expanded}
-                    countries={this.countries}
+                    ref={c => this.countrySelector = c}
                     currentCountry={this.state.currentCountry}
                     changeCountry={this.changeCountry}/>
             </div>
@@ -30,11 +28,13 @@ class Search extends Component {
     }
 
     toggleExpansion = () => {
-        this.setState({expanded: !this.state.expanded});
+        // this.setState({expanded: !this.state.expanded});
+        this.countrySelector.toggleExpansion();
     };
 
     changeCountry = (country) => {
-        this.toggleExpansion();
+        // this.toggleExpansion();
+        // this.countrySelector.toggleExpansion();
         this.setState({currentCountry: country});
     };
 
