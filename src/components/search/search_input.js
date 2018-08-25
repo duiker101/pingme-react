@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import SearchButton from "./search_button";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import Loader from 'react-loader-spinner'
 import PropTypes from 'prop-types';
 import './search_input.css'
 
@@ -14,7 +15,16 @@ class SearchInput extends Component {
                        autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
                 <div className="submit">
-                    <SearchButton loading={this.props.loading} onClick={this.submitSearch}/>
+                    {!this.props.loading &&
+                        <span onClick={this.submitSearch}>
+                            <FontAwesomeIcon icon="search" className={`button`}/>
+                        </span>
+                    }
+                    {this.props.loading &&
+                        <div className={`loader`}>
+                            <Loader type="Puff" color="#555" height="40" width="30" cl/>
+                        </div>
+                    }
                 </div>
             </React.Fragment>
         );
@@ -36,13 +46,13 @@ class SearchInput extends Component {
             this.props.showError("Name not valid");
             return;
         }
-        this.props.searched(name)
+        this.props.onSearch(name)
     };
 }
 
 SearchInput.propTypes = {
     loading: PropTypes.bool,
-    searched: PropTypes.func
+    onSearch: PropTypes.func
 };
 
 export default SearchInput;

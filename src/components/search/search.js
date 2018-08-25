@@ -17,7 +17,7 @@ class Search extends Component {
         return (
             <div className="search">
 
-                <SearchInput searched={this.fetchPlayer} loading={this.props.loading}/>
+                <SearchInput onSearch={this.fetchPlayer} loading={this.props.loading}/>
 
                 <button onClick={this.toggleExpansion} className="region">{this.state.currentCountry}</button>
 

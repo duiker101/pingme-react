@@ -24,5 +24,20 @@ input[type=text]:focus {
     border-radius: 0;
   }
 }
+.button.hidden, .loader.hidden {
+  display: none;
+}
+
+.button {
+  height: 40px;
+  line-height: 40px;
+  font-size: 1.4em;
+  color: #444;
+  cursor: pointer;
+}
+
+.loader {
+  height: 40px;
+}
 
 /*# sourceMappingURL=search_input.css.map */

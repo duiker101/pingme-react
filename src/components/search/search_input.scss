@@ -26,3 +26,22 @@ input[type='text'] {
     border-radius: 0;
   }
 }
+
+.button, .loader{
+  &.hidden{
+    display: none;
+  }
+}
+
+.button {
+  height: 40px;
+  line-height: 40px;
+  font-size: 1.4em;
+  color: #444;
+  cursor: pointer;
+}
+
+.loader{
+  height: 40px;
+}
+

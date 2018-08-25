@@ -2,7 +2,6 @@ import React from 'react';
 import {expect} from 'chai';
 import {shallow} from 'enzyme';
 import sinon from 'sinon';
-import SearchButton from "../search_button";
 import Loader from "react-loader-spinner";
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -10,10 +9,10 @@ import Adapter from 'enzyme-adapter-react-16';
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('<SearhButton />', () => {
-    it('renders three <Foo /> components', () => {
-        const wrapper = shallow(<SearchButton />);
-        expect(wrapper.find(Loader)).to.have.lengthOf(1);
-    });
+    // it('renders three <Foo /> components', () => {
+    //     const wrapper = shallow(<SearchButton />);
+    //     expect(wrapper.find(Loader)).to.have.lengthOf(1);
+    // });
 
     // it('renders an `.icon-star`', () => {
     //     const wrapper = shallow(<MyComponent />);
