@@ -1,3 +1,6 @@
+/**
+ * Class to wrap error messages and HTTP error codes
+ */
 class ApiError extends Error {
     constructor(code, m) {
         super(m);
@@ -6,6 +9,11 @@ class ApiError extends Error {
 }
 
 class Apis {
+    /**
+     * Classic catch of errors from fetch(). fetch() doesn't trigger a catch on code != 200.
+     * @param response
+     * @returns {{ok}|Object}
+     */
     static handleErrors(response) {
         if (!response.ok) {
             throw Error(response.statusText);

@@ -7,7 +7,12 @@ import './monitor.css'
 class MonitorView extends Component {
     constructor(props) {
         super(props);
-        this.state = {hovering: false, time: ''}
+        this.state = {
+            /**
+             * When hovering the component we want to show the x to remove the monitor
+             */
+            hovering: false,
+            time: ''}
     }
 
     render() {
@@ -48,6 +53,9 @@ class MonitorView extends Component {
         return `${baseUrl}${this.props.version}/img/profileicon/${this.props.monitor.player.profileIconId}.png`
     };
 
+    /**
+     * get the duration of the game as human-readable string. gameStartTime CAN BE 0
+     */
     gameTime = () => {
         let time = this.props.monitor.game.gameStartTime;
         if (time > 0) {
@@ -62,6 +70,10 @@ class MonitorView extends Component {
         this.timer = setTimeout(this.gameTime, 10);
     };
 
+    /**
+     * Get the game mode for the game but works only for some game modes. Should still cover 99% of the games.
+     * @returns {string}
+     */
     gameMode = () => {
         let id = this.props.monitor.game.gameQueueConfigId;
         let modes = {

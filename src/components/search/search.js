@@ -19,21 +19,21 @@ class Search extends Component {
 
                 <SearchInput onSearch={this.fetchPlayer} loading={this.props.loading}/>
 
-                <button onClick={this.toggleExpansion} className="region">{this.state.currentCountry}</button>
+                <button onClick={this.toggleCountryExpansion} className="region">{this.state.currentCountry}</button>
 
                 <Countries
                     ref={c => this.countrySelector = c}
                     currentCountry={this.state.currentCountry}
-                    changeCountry={this.changeCountry}/>
+                    onChange={this.onCountryChange}/>
             </div>
         );
     }
 
-    toggleExpansion = () => {
+    toggleCountryExpansion = () => {
         this.countrySelector.toggleExpansion();
     };
 
-    changeCountry = (country) => {
+    onCountryChange = (country) => {
         this.setState({currentCountry: country});
     };
 
@@ -51,7 +51,7 @@ class Search extends Component {
 
     showError = (message) => {
         this.props.setLoading(false);
-        this.props.showError(message);
+        this.props.onError(message);
     }
 }
 
@@ -60,7 +60,7 @@ Search.propTypes = {
 
     addPlayer: PropTypes.func,
     setLoading: PropTypes.func,
-    showError: PropTypes.func
+    onError: PropTypes.func
 };
 
 export default Search;

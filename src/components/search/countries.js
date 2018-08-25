@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './countries.css'
 
+/**
+ * Dialog to select the country in which to search
+ */
 class Countries extends Component {
     constructor(props) {
         super(props);
@@ -28,12 +31,12 @@ class Countries extends Component {
     }
 
     componentDidMount() {
-        this.props.changeCountry(this.countries[0]);
+        this.props.onChange(this.countries[0]);
     }
 
     changeCountry = (country) => {
         this.toggleExpansion();
-        this.props.changeCountry(country);
+        this.props.onChange(country);
     };
 
     toggleExpansion = () => {
@@ -51,7 +54,7 @@ class Countries extends Component {
 
 Countries.propTypes = {
     currentCountry: PropTypes.string,
-    changeCountry: PropTypes.func
+    onChange: PropTypes.func
 };
 
 export default Countries;

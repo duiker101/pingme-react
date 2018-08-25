@@ -34,12 +34,21 @@ class SearchInput extends Component {
         this.filterName(this.input.value);
     };
 
+    /**
+     * If Enter pressed act as if the user clicked the search button
+     * @param e
+     */
     keyPress = (e) => {
         if (e.key === 'Enter') {
             this.filterName(this.input.value);
         }
     };
 
+    /**
+     * Return a name as API compatible(remove spaces)
+     * TODO also encode funky chars
+     * @param value
+     */
     filterName = (value) => {
         let name = value.replace(/\s/g, "");
         if (name.length <= 0) {

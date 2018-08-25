@@ -14,6 +14,14 @@ nav {
     &:hover {
       text-shadow: 0 0 20px #fff;
     }
+
+    img {
+      width: 20px;
+      //&:hover {
+      //  box-shadow: 0 0 20px #fff;
+      //}
+      //vertical-align: middle;
+    }
   }
 }
 

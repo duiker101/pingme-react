@@ -11,16 +11,24 @@ import './App.css';
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {monitors: {}, error: '', loading: false, order: 0};
-    }
-
-    componentDidMount() {
-        Apis.getVersions().then(data => this.version = data['v']);
-        Apis.getChampions().then(data => this.champions = data);
-
-        if (Notification.permission === 'default') {
-            Notification.requestPermission();
-        }
+        this.state = {
+            /**
+             * Current players being monitored. Hashmap where the key is the PlayerId
+             */
+            monitors: {},
+            /**
+             * Current error message
+             */
+            error: '',
+            /**
+             * if it's currently loading, triggered only on first search of a game
+             */
+            loading: false,
+            /**
+             * Incremental, increased every time we add a new monitor to keep sort of them
+             * TODO, doesn't really need to be a state
+             */
+            order: 0};
     }
 
     render() {
@@ -34,7 +42,7 @@ class App extends Component {
                         <Search
                             loading={this.state.loading}
                             setLoading={this.setLoading}
-                            showError={this.showError}
+                            onError={this.showError}
                             addPlayer={this.findGame}/>
 
                         <div>
@@ -55,6 +63,23 @@ class App extends Component {
         );
     }
 
+    /**
+     * On mount of the component we gather from the API the version, for the profile icon and the list of champions
+     * We also ask the user for notification permission if we don't have it already
+     */
+    componentDidMount() {
+        Apis.getVersions().then(data => this.version = data['v']);
+        Apis.getChampions().then(data => this.champions = data);
+
+        if (Notification.permission === 'default') {
+            Notification.requestPermission();
+        }
+    }
+
+    /**
+     * Find if a player is in a game, if so add it to the monitors
+     * @param player object form the API
+     */
     findGame = (player) => {
         Apis.getGame(player.id)
             .then(game => {
@@ -63,6 +88,11 @@ class App extends Component {
             .catch(error => this.showError(error.message))
     };
 
+    /**
+     * Add a player, it's champion and a game to the monitors in the state
+     * @param player
+     * @param game
+     */
     addMonitor = (player, game) => {
         let champion = this.champions[this.getChampionId(player, game)];
         this.state.monitors[player.id] = {player: player, game: game, champion: champion, order: this.state.order};
@@ -70,6 +100,10 @@ class App extends Component {
         this.scheduleUpdate(player.id);
     };
 
+    /**
+     * Update the game in a monitor for a specific player
+     * @param playerId player who's game we want to update
+     */
     updateGame = (playerId) => {
         if (!(playerId in this.state.monitors))
             return;
@@ -90,10 +124,20 @@ class App extends Component {
             )
     };
 
+    /**
+     * start a timer to update a game in 10010ms. This is because the server has a cache of 10s on the game page so
+     * we want to be sure we will get a new page. with page load times we probably would, but no one is going to notice
+     * 10ms more
+     * @param playerId
+     */
     scheduleUpdate = (playerId) => {
-        setTimeout(() => this.updateGame(playerId), 10200);
+        setTimeout(() => this.updateGame(playerId), 10010);
     };
 
+    /**
+     * Stop the monitor and notify the browser of a finished game
+     * @param playerId
+     */
     finishedMonitor = (playerId) => {
         let player = this.state.monitors[playerId].player;
         this.stop(playerId);
@@ -104,6 +148,12 @@ class App extends Component {
         });
     };
 
+    /**
+     * Given a player and his game, find what champion he is playing and return it's id
+     * @param player api object
+     * @param game api object from the spectator api
+     * @returns {number} champion id
+     */
     getChampionId = (player, game) => {
         for (let p of game.participants) {
             if (p.summonerId === player.id)
@@ -111,6 +161,10 @@ class App extends Component {
         }
     };
 
+    /**
+     * Remove a monitor from the state
+     * @param playerId
+     */
     stop = (playerId) => {
         delete this.state.monitors[playerId];
         this.setState({monitors: this.state.monitors});
@@ -120,9 +174,14 @@ class App extends Component {
         this.setState({loading: loading});
     };
 
+    /**
+     * Display an error and start a timer for 3s, after which, hide the error
+     * @param message
+     */
     showError = (message) => {
         this.setState({error: message, loading: false});
 
+        // TODO, use a isErrorVisible instead of clearing the error message
         clearTimeout(this.timer);
         this.timer = setTimeout(() => {
             this.setState({error: ''});
