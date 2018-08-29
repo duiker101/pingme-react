@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './errors.css'
+import PropTypes from 'prop-types';
 
 class Errors extends Component {
     constructor(props) {
@@ -25,5 +26,9 @@ class Errors extends Component {
         this.setState({visible: true});
     }
 }
+
+Errors.propTypes = {
+    message: PropTypes.string
+};
 
 export default Errors;

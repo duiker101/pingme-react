@@ -12,10 +12,8 @@ class Nav extends Component {
             <a href="https://github.com/duiker101/pingme-react">
                 <img src={Logo} alt={'GitHub logo'}/>
             </a>
-
         </nav>);
     }
-
 }
 
 export default Nav;
