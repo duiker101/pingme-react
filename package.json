@@ -18,8 +18,8 @@
   "scripts": {
     "start": "react-scripts start",
     "add-cname": "echo pingme.riftkit.net > docs/CNAME",
-    "move-build": "rm -rf docs && mv build docs && mv storybook-static docs/storybook",
-    "build": "react-scripts build && yarn run build-storybook && yarn run move-build && yarn run add-cname",
+    "move-build": "rm -rf docs && mv build docs",
+    "build": "react-scripts build && yarn run move-build && yarn run add-cname",
     "test": "react-scripts test --env=jsdom",
     "sass": "sass src:src --watch",
     "eject": "react-scripts eject",
