@@ -2,7 +2,7 @@
 body, html {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    font-family: 'Open Sans', sans-serif;
 
     background: radial-gradient(circle at 100% 300%, #f1d9a5, #16333b);
     height: 100%;

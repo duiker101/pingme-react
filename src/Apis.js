@@ -21,8 +21,8 @@ class Apis {
         return response;
     };
 
-    static getPlayer(name) {
-        return fetch(`https://api.riftkit.net/api/euw1/summoner/by-name/${name}`)
+    static getPlayer(name,country) {
+        return fetch(`https://api.riftkit.net/api/${country}/summoner/by-name/${name}`)
             .then(this.handleErrors)
             .then(r => r.json())
             .then(data => {
@@ -35,8 +35,8 @@ class Apis {
             })
     }
 
-    static getGame(playerId) {
-        return fetch(`https://api.riftkit.net/api/euw1/current_game/${playerId}`)
+    static getGame(playerId,country) {
+        return fetch(`https://api.riftkit.net/api/${country}/current_game/${playerId}`)
             .then(this.handleErrors)
             .then(r => r.json())
             .then(data => {
@@ -49,14 +49,14 @@ class Apis {
             })
     }
 
-    static getChampions() {
-        return fetch(`https://api.riftkit.net/api/euw1/champions/small`)
+    static getChampions(country) {
+        return fetch(`https://api.riftkit.net/api/${country}/champions/small`)
             .then(this.handleErrors)
             .then(r => r.json())
     }
 
-    static getVersions() {
-        return fetch(`https://api.riftkit.net/api/euw1/versions`)
+    static getVersions(country) {
+        return fetch(`https://api.riftkit.net/api/${country}/versions`)
             .then(this.handleErrors)
             .then(r => r.json())
     }

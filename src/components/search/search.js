@@ -42,9 +42,9 @@ class Search extends Component {
 
         this.props.setLoading(true);
 
-        Apis.getPlayer(name)
+        Apis.getPlayer(name,this.state.currentCountry)
             .then(player => {
-                this.props.addPlayer(player);
+                this.props.addPlayer(player,this.state.currentCountry);
             })
             .catch(error => this.showError(error.message))
     };

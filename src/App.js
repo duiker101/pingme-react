@@ -68,8 +68,8 @@ class App extends Component {
      * We also ask the user for notification permission if we don't have it already
      */
     componentDidMount() {
-        Apis.getVersions().then(data => this.version = data['v']);
-        Apis.getChampions().then(data => this.champions = data);
+        Apis.getVersions('euw1').then(data => this.version = data['v']);
+        Apis.getChampions('euw1').then(data => this.champions = data);
 
         if (Notification.permission === 'default') {
             Notification.requestPermission();
@@ -79,11 +79,12 @@ class App extends Component {
     /**
      * Find if a player is in a game, if so add it to the monitors
      * @param player object form the API
+     * @param country
      */
-    findGame = (player) => {
-        Apis.getGame(player.id)
+    findGame = (player,country) => {
+        Apis.getGame(player.id,country)
             .then(game => {
-                this.addMonitor(player, game)
+                this.addMonitor(player,country, game)
             })
             .catch(error => this.showError(error.message))
     };
@@ -91,29 +92,31 @@ class App extends Component {
     /**
      * Add a player, it's champion and a game to the monitors in the state
      * @param player
+     * @param country
      * @param game
      */
-    addMonitor = (player, game) => {
+    addMonitor = (player,country, game) => {
         let champion = this.champions[this.getChampionId(player, game)];
         this.state.monitors[player.id] = {player: player, game: game, champion: champion, order: this.state.order};
         this.setState({monitors: this.state.monitors, loading: false, order: this.state.order + 1});
-        this.scheduleUpdate(player.id);
+        this.scheduleUpdate(player.id, country);
     };
 
     /**
      * Update the game in a monitor for a specific player
      * @param playerId player who's game we want to update
+     * @param country
      */
-    updateGame = (playerId) => {
+    updateGame = (playerId, country) => {
         if (!(playerId in this.state.monitors))
             return;
-        Apis.getGame(playerId)
+        Apis.getGame(playerId,country)
             .then(game => {
                 if (!(playerId in this.state.monitors))
                     return;
                 this.state.monitors[playerId].game = game;
                 this.setState({monitors: this.state.monitors});
-                this.scheduleUpdate(playerId)
+                this.scheduleUpdate(playerId,country)
             })
             .catch(error => {
                     if (error.code === 404)
@@ -130,8 +133,8 @@ class App extends Component {
      * 10ms more
      * @param playerId
      */
-    scheduleUpdate = (playerId) => {
-        setTimeout(() => this.updateGame(playerId), 10010);
+    scheduleUpdate = (playerId,country) => {
+        setTimeout(() => this.updateGame(playerId,country), 10010);
     };
 
     /**
