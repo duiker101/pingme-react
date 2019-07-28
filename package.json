@@ -3,23 +3,22 @@
   "version": "1.0.0",
   "private": true,
   "homepage": "https://pingme.riftkit.net/",
+  "license": "GPL-3.0+",
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.2",
-    "@fortawesome/free-solid-svg-icons": "^5.2.0",
-    "@fortawesome/react-fontawesome": "^0.1.2",
-    "node-sass": "^4.9.3",
-    "prop-types": "^15.6.2",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "react-loader-spinner": "^2.1.0",
-    "react-scripts": "1.1.4",
-    "sass": "^1.12.0"
+    "@fortawesome/fontawesome-svg-core": "^1.2.19",
+    "@fortawesome/free-solid-svg-icons": "^5.9.0",
+    "@fortawesome/react-fontawesome": "^0.1.4",
+    "node-sass": "^4.12.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-loader-spinner": "^2.3.0",
+    "react-scripts": "3.0.1",
+    "sass": "^1.22.7"
   },
   "scripts": {
     "start": "react-scripts start",
-    "add-cname": "echo pingme.riftkit.net > docs/CNAME",
-    "move-build": "rm -rf docs && mv build docs",
-    "build": "react-scripts build && yarn run move-build && yarn run add-cname",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "sass": "sass src:src --watch",
     "eject": "react-scripts eject",
@@ -27,16 +26,28 @@
     "build-storybook": "build-storybook -s public "
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^3.4.10",
-    "@storybook/addon-links": "^3.4.10",
-    "@storybook/addons": "^3.4.10",
-    "@storybook/react": "^3.4.10",
-    "babel-core": "^6.26.3",
-    "babel-runtime": "^6.26.0",
-    "chai": "^4.1.2",
-    "chai-enzyme": "^1.0.0-beta.1",
-    "enzyme": "^3.4.4",
-    "enzyme-adapter-react-16": "^1.2.0",
-    "sinon": "^6.1.5"
+    "@storybook/addon-actions": "^5.1.9",
+    "@storybook/addon-links": "^5.1.9",
+    "@storybook/addons": "^5.1.9",
+    "@storybook/react": "^5.1.9",
+    "babel-core": "6.26.3",
+    "babel-runtime": "6.26.0",
+    "chai": "^4.2.0",
+    "chai-enzyme": "1.0.0-beta.1",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "sinon": "^7.3.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
