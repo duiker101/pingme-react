@@ -12,7 +12,8 @@ class MonitorView extends Component {
              * When hovering the component we want to show the x to remove the monitor
              */
             hovering: false,
-            time: ''}
+            time: ''
+        }
     }
 
     render() {
@@ -24,7 +25,7 @@ class MonitorView extends Component {
                     {this.props.monitor.player.name}({this.props.monitor.champion.name}){this.gameMode()}
                 </div>
                 <div className="time">{this.state.time}</div>
-                <span onClick={() => this.props.stop(this.props.monitor.player.id)}>
+                <span onClick={this.stop}>
                 <FontAwesomeIcon icon="times" className={this.state.hovering ? 'visible' : ''}/>
                 </span>
             </div>
@@ -36,6 +37,8 @@ class MonitorView extends Component {
             this.refs.content.classList.remove("hidden");
         }, 50);
 
+        if (window._paq)
+            window._paq.push(['trackEvent', 'Monitor', 'Start']);
         this.gameTime();
     }
 
@@ -86,7 +89,13 @@ class MonitorView extends Component {
         if (id in modes)
             return ` - ${modes[id]}`;
         else return ''
-    }
+    };
+
+    stop = () => {
+        if (window._paq)
+            window._paq.push(['trackEvent', 'Monitor', 'Stop']);
+        this.props.stop(this.props.monitor.player.id)
+    };
 }
 
 MonitorView.propTypes = {

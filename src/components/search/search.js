@@ -35,10 +35,14 @@ class Search extends Component {
 
     onCountryChange = (country) => {
         this.setState({currentCountry: country});
+        if(window._paq)
+            window._paq.push(['trackEvent', 'Country', 'Change', `Country - ${country}`]);
     };
 
     fetchPlayer = (name) => {
         // todo check player already added
+        if(window._paq)
+            window._paq.push(['trackEvent', 'Search', 'Player', `Country - ${this.state.currentCountry}`]);
 
         this.props.setLoading(true);
 

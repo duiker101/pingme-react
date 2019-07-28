@@ -21,15 +21,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "sass": "sass src:src --watch",
-    "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public "
+    "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^5.1.9",
-    "@storybook/addon-links": "^5.1.9",
-    "@storybook/addons": "^5.1.9",
-    "@storybook/react": "^5.1.9",
     "babel-core": "6.26.3",
     "babel-runtime": "6.26.0",
     "chai": "^4.2.0",

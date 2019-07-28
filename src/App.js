@@ -97,8 +97,9 @@ class App extends Component {
      */
     addMonitor = (player,country, game) => {
         let champion = this.champions[this.getChampionId(player, game)];
-        this.state.monitors[player.id] = {player: player, game: game, champion: champion, order: this.state.order};
-        this.setState({monitors: this.state.monitors, loading: false, order: this.state.order + 1});
+        let monitors = this.state.monitors;
+        monitors[player.id] = {player: player, game: game, champion: champion, order: this.state.order};
+        this.setState({monitors: monitors, loading: false, order: this.state.order + 1});
         this.scheduleUpdate(player.id, country);
     };
 
@@ -114,8 +115,9 @@ class App extends Component {
             .then(game => {
                 if (!(playerId in this.state.monitors))
                     return;
-                this.state.monitors[playerId].game = game;
-                this.setState({monitors: this.state.monitors});
+                let monitor = this.state.monitors[playerId];
+                monitor.game = game;
+                this.setState({monitors: {...this.state.monitors, [playerId]: monitor}});
                 this.scheduleUpdate(playerId,country)
             })
             .catch(error => {
@@ -145,6 +147,8 @@ class App extends Component {
         let player = this.state.monitors[playerId].player;
         this.stop(playerId);
 
+        if(window._paq)
+            window._paq.push(['trackEvent', 'Notification', 'Display']);
         let notification = new Notification(`${player.name} finished playing`, {
             icon: 'https://i.imgur.com/Tmc5u7u.png',
             body: "Go fuck some shit up!"
